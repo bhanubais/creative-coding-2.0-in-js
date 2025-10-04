@@ -138,6 +138,11 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+# Sublime Text specific
+# ---------------------------------
+*.sublime-project
+*.sublime-workspace
+
 # OS-specific files (Windows)
 # ---------------------------------
 Thumbs.db
