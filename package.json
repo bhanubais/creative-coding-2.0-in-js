@@ -1,0 +1,24 @@
+{
+  "name": "creative-coding-2.0-in",
+  "version": "1.0.0",
+  "description": "`npx canvas-sketch-cli sketches/01-sketch.js --new --open --template=./templates/template-basic.js --output=output/01 --stream`",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhanubais/creative-coding-2.0-in-js.git"
+  },
+  "keywords": [],
+  "author": "bhanubais",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/bhanubais/creative-coding-2.0-in-js/issues"
+  },
+  "homepage": "https://github.com/bhanubais/creative-coding-2.0-in-js#readme",
+  "dependencies": {
+    "canvas-sketch": "^0.7.7"
+  }
+}
