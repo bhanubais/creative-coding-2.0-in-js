@@ -137,3 +137,18 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# OS-specific files (Windows)
+# ---------------------------------
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Build output
+# ---------------------------------
+/dist
+/build
+
+# Canvas-sketch output folder
+# ---------------------------------
+/output
