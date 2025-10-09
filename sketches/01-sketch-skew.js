@@ -17,8 +17,8 @@ const sketch = (props) => {
   // Destructure what we need from props
   const { context, width, height } = props;
 
-  const angle = 30;
   const n = 20;
+  const degrees = -30;
   const rects = [];
 
   for (let i = 0; i < n; i++) {
@@ -42,7 +42,7 @@ const sketch = (props) => {
       context.translate(x, y);
       context.strokeStyle = 'blue';
 
-      drawSkewedRect({ context });
+      drawSkewedRect({ context, w, h, degrees });
       context.stroke();
 
       context.restore();
@@ -51,8 +51,8 @@ const sketch = (props) => {
   };
 };
 
-const drawSkewedRect = ({ context, w = 600, h = 200, degree = -45 }) => {
-  const angle = math.degToRad(degree);
+const drawSkewedRect = ({ context, w = 600, h = 200, degrees = -45 }) => {
+  const angle = math.degToRad(degrees);
   const rx = Math.cos(angle) * w;
   const ry = Math.sin(angle) * w;
 
