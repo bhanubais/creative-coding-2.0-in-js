@@ -1,11 +1,15 @@
 // Import the library
 const canvasSketch = require('canvas-sketch');
 const math = require('canvas-sketch-util/math');
+const random = require('canvas-sketch-util/random');
 
 // Specify some output parameters
 const settings = {
   // The [width, height] of the artwork in pixels
-  dimensions: [ 1080, 1080 ]
+  dimensions: [ 1080, 1080 ],
+  // animate: true,
+  // fps: 1,
+  // playbackRate: "throttle"
 };
 
 // Start the sketch
@@ -13,27 +17,37 @@ const sketch = (props) => {
   // Destructure what we need from props
   const { context, width, height } = props;
 
-  let x, y, w, h;
-  let angle, rx, ry;
+  const angle = 30;
+  const n = 20;
+  const rects = [];
+
+  for (let i = 0; i < n; i++) {
+    const x = width * random.range(0, 0.8);
+    const y = height * random.range(0, 0.9);
+    const w = width * random.range(0.2, 0.6);
+    const h = height * random.range(0.1, 0.4);
+
+    rects.push({ x, y, w, h });
+  }
 
   return () => {
     // Fill the canvas with pink
     context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
 
-    x = width * 0.5;
-    y = height * 0.5;
-    w = width * 0.6;
-    h = height * 0.1;
+    rects.forEach(rect => {
+      const { x, y, w, h } = rect;
+      
+      context.save();
+      context.translate(x, y);
+      context.strokeStyle = 'blue';
 
-    context.save();
-    context.translate(x, y);
-    context.strokeStyle = 'blue';
+      drawSkewedRect({ context });
+      context.stroke();
 
-    drawSkewedRect({ context });
-    context.stroke();
+      context.restore();
+    });
 
-    context.restore();
   };
 };
 
