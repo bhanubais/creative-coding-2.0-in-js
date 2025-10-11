@@ -2,6 +2,8 @@
 const canvasSketch = require('canvas-sketch');
 const math = require('canvas-sketch-util/math');
 const random = require('canvas-sketch-util/random');
+const color = require('canvas-sketch-util/color');
+const colors = require('riso-colors');
 
 // Specify some output parameters
 const settings = {
@@ -21,28 +23,57 @@ const sketch = (props) => {
   const degrees = -30;
   const rects = [];
 
+  const rectColors = [
+    random.pick(colors),
+    random.pick(colors),
+    // random.pick(colors)
+  ];
+
   for (let i = 0; i < n; i++) {
     const x = width * random.range(0, 0.8);
     const y = height * random.range(0, 0.9);
-    const w = width * random.range(0.2, 0.6);
+    const w = width * random.range(0.2, 0.8);
     const h = height * random.range(0.1, 0.4);
 
-    rects.push({ x, y, w, h });
+    const fill = random.pick(rectColors).hex;
+    const stroke = random.pick(rectColors).hex;
+    const blend = (Math.random() > 0.5) ? 'overlay' : 'source-over';
+
+    rects.push({ x, y, w, h, fill, stroke, blend });
   }
 
   return () => {
     // Fill the canvas with pink
-    context.fillStyle = 'white';
+    context.fillStyle = random.pick(colors).hex;
     context.fillRect(0, 0, width, height);
+    context.lineWidth = 20;
 
     rects.forEach(rect => {
-      const { x, y, w, h } = rect;
+      const { x, y, w, h, fill, stroke, blend } = rect;
       
       context.save();
       context.translate(x, y);
-      context.strokeStyle = 'blue';
+      context.strokeStyle = stroke;
+      context.fillStyle = fill;
+
+      const shadowColor = color.offsetHSL(fill, 0, 0, -20);
+      shadowColor[ 3 ] = 0.5;
+
+      context.shadowColor = color.style(shadowColor.rgba);
+      context.shadowOffsetX = -10;
+      context.shadowOffsetY = 10;
+
+      context.globalCompositeOperation = blend;
 
       drawSkewedRect({ context, w, h, degrees });
+      context.fill();
+
+      context.shadowColor = null;
+      context.stroke();
+
+      context.globalCompositeOperation = 'source-over';
+      context.lineWidth = 2;
+      context.strokeStyle = 'black';
       context.stroke();
 
       context.restore();
